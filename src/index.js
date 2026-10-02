@@ -1,14 +1,25 @@
 const express = require('express');
 const dotenv = require('dotenv');
+
+dotenv.config();
+
 const cors = require('cors');
 const connectDB = require('./config/db');
 
-dotenv.config();
+// Register models
+require('./models/User');
+require('./models/Department');
+require('./models/Student');
+
+const studentRoutes = require('./routes/studentRoutes');
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+// Student Routes
+app.use('/api/students', studentRoutes);
 
 app.get('/', (req, res) => {
   res.send('Smart Campus Backend APIs');
