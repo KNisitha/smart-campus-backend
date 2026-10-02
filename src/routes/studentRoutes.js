@@ -3,14 +3,10 @@ const Student = require('../models/Student');
 
 const router = express.Router();
 
-// Get all students
+// GET all students
 router.get('/', async (req, res) => {
   try {
-    console.log('GET /api/students called');
-
     const students = await Student.find();
-
-    console.log('Students found:', students.length);
 
     res.json({
       success: true,
@@ -18,9 +14,30 @@ router.get('/', async (req, res) => {
       data: students
     });
   } catch (error) {
-    console.error('Student API Error:', error);
-
     res.status(500).json({
+      success: false,
+      message: error.message
+    });
+  }
+});
+
+// POST create student
+router.post('/', async (req, res) => {
+  try {
+    console.log('POST /api/students called');
+    console.log('Request body:', req.body);
+
+    const student = await Student.create(req.body);
+
+    res.status(201).json({
+      success: true,
+      message: 'Student created successfully',
+      data: student
+    });
+  } catch (error) {
+    console.error('Student POST Error:', error);
+
+    res.status(400).json({
       success: false,
       message: error.message
     });

@@ -50,14 +50,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Existing APIs
+// APIs
 app.use('/api/students', studentRoutes);
 app.use('/api/faculty', facultyRoutes);
 app.use('/api/departments', departmentRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/subjects', subjectRoutes);
 
-// New APIs
 app.use('/api/attendance', attendanceRoutes);
 app.use('/api/assignments', assignmentRoutes);
 app.use('/api/submissions', submissionRoutes);
@@ -76,7 +75,7 @@ app.get('/', (req, res) => {
   res.send('Smart Campus Backend APIs');
 });
 
-// Health API
+// Health
 app.get('/api/health', (req, res) => {
   res.json({
     success: true,

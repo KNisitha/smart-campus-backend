@@ -20,4 +20,21 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.post('/', async (req, res) => {
+  try {
+    const complaint = await Complaint.create(req.body);
+
+    res.status(201).json({
+      success: true,
+      message: 'Complaint created successfully',
+      data: complaint
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: error.message
+    });
+  }
+});
+
 module.exports = router;

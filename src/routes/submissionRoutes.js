@@ -20,4 +20,21 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.post('/', async (req, res) => {
+  try {
+    const submission = await Submission.create(req.body);
+
+    res.status(201).json({
+      success: true,
+      message: 'Submission created successfully',
+      data: submission
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: error.message
+    });
+  }
+});
+
 module.exports = router;

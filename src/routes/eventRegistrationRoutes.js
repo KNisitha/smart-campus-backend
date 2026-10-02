@@ -20,4 +20,21 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.post('/', async (req, res) => {
+  try {
+    const registration = await EventRegistration.create(req.body);
+
+    res.status(201).json({
+      success: true,
+      message: 'Event registration created successfully',
+      data: registration
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: error.message
+    });
+  }
+});
+
 module.exports = router;

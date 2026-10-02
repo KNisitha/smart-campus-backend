@@ -12,9 +12,25 @@ router.get('/', async (req, res) => {
       count: faculty.length,
       data: faculty
     });
-
   } catch (error) {
     res.status(500).json({
+      success: false,
+      message: error.message
+    });
+  }
+});
+
+router.post('/', async (req, res) => {
+  try {
+    const faculty = await Faculty.create(req.body);
+
+    res.status(201).json({
+      success: true,
+      message: 'Faculty created successfully',
+      data: faculty
+    });
+  } catch (error) {
+    res.status(400).json({
       success: false,
       message: error.message
     });
